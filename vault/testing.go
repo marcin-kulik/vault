@@ -2329,6 +2329,7 @@ func (m *mockBuiltinRegistry) Keys(pluginType consts.PluginType) []string {
 		}
 	case consts.PluginTypeCredential:
 		return []string{
+			"app-id",
 			"approle",
 		}
 	}
