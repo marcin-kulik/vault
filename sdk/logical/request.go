@@ -79,18 +79,18 @@ func IndexStateFromContext(ctx context.Context) *WALState {
 	return s
 }
 
-const deprecationErrorCtxKey = "deprecation_status_error"
+const deprecationResponseCtxKey = "deprecation_status_response"
 
 // DeprecationResponseContext returns a context with an added value holding the
 // deprecation error that should be surfaced to the API from mount internals.
 func DeprecationResponseContext(ctx context.Context, resp *Response) context.Context {
-	return context.WithValue(ctx, deprecationErrorCtxKey, resp)
+	return context.WithValue(ctx, deprecationResponseCtxKey, resp)
 }
 
 // DeprecationErrorFromContext is a helper to look up a deprecation error
 // returned within the mount internals.
 func DeprecationResponseFromContext(ctx context.Context) *Response {
-	s, ok := ctx.Value(deprecationErrorCtxKey).(*Response)
+	s, ok := ctx.Value(deprecationResponseCtxKey).(*Response)
 	if !ok {
 		return nil
 	}
