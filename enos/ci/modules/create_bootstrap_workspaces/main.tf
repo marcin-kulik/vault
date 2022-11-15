@@ -23,7 +23,7 @@ variable "organization" {
 }
 
 locals {
-  workspace_names = toset([for region in var.regions : "enos-ci-bootstrap-${region}"])
+  workspace_names = toset([for region in var.regions : "vault-ci-enos-boostrap-${region}"])
 }
 
 resource "tfe_workspace" "ci_bootstrap_workspaces" {
