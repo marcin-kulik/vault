@@ -90,11 +90,11 @@ func DeprecationResponseContext(ctx context.Context, resp *Response) context.Con
 // DeprecationErrorFromContext is a helper to look up a deprecation error
 // returned within the mount internals.
 func DeprecationResponseFromContext(ctx context.Context) *Response {
-	s, ok := ctx.Value(deprecationResponseCtxKey).(*Response)
+	r, ok := ctx.Value(deprecationResponseCtxKey).(*Response)
 	if !ok {
 		return nil
 	}
-	return s
+	return r
 }
 
 // Request is a struct that stores the parameters and context of a request
