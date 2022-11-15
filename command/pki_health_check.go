@@ -216,31 +216,31 @@ func (c *PKIHealthCheckCommand) Run(args []string) int {
 	if c.flagConfig != "" {
 		contents, err := os.ReadFile(c.flagConfig)
 		if err != nil {
-			c.UI.Error(fmt.Sprintf("Failed to read configuration file %v: %v", c.flagConfig, err))
+			c.UI.Error(fmt.Sprintf("Failed to read configuration file %v: %w", c.flagConfig, err))
 			return pkiRetUsage
 		}
 
 		if err := json.Unmarshal(contents, &external_config); err != nil {
-			c.UI.Error(fmt.Sprintf("Failed to parse configuration file %v: %v", c.flagConfig, err))
+			c.UI.Error(fmt.Sprintf("Failed to parse configuration file %v: %w", c.flagConfig, err))
 			return pkiRetUsage
 		}
 	}
 
 	if err := executor.BuildConfig(external_config); err != nil {
-		c.UI.Error(fmt.Sprintf("Failed to build health check configuration: %v", err))
+		c.UI.Error(fmt.Sprintf("Failed to build health check configuration: %w", err))
 		return pkiRetUsage
 	}
 
 	// Run the health checks.
 	results, err := executor.Execute()
 	if err != nil {
-		c.UI.Error(fmt.Sprintf("Failed to run health check: %v", err))
+		c.UI.Error(fmt.Sprintf("Failed to run health check: %w", err))
 		return pkiRetUsage
 	}
 
 	// Display the output.
 	if err := c.outputResults(results); err != nil {
-		c.UI.Error(fmt.Sprintf("Failed to render results for display: %v", err))
+		c.UI.Error(fmt.Sprintf("Failed to render results for display: %w", err))
 	}
 
 	// Select an appropriate return code.
